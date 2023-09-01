@@ -5,26 +5,32 @@ public:
     int hIndex(vector<int>& citations) {
         
         int n=citations.size();
-        int maxe;
         sort(citations.begin(), citations.end());
-        maxe = citations[n-1];
 
-        int ans=-1;
-        for(int i=0; i<=maxe; i++){
-            int papers=0;
-            for(int j=0; j<n; j++){
-                if(citations[j]>=i){
-                    papers++;
-                }
+        int low =0, high = n-1;
+        int mid;
+        int valid;
+
+        if(citations[0]>=n){
+            return n;
+        }
+        
+        while(low<=high){
+            mid = low + (high-low)/2;
+
+            if(citations[mid]==n-mid){
+                return citations[mid];
             }
-            if(papers>=i){
-                ans = max(ans, i);
+            else if(citations[mid]<n-mid){
+                valid = mid;
+                low = mid+1;
             }
             else{
-                break;
+                high = mid-1;
             }
         }
 
-        return ans;
+        return n-valid-1;
+        
     }
 };
