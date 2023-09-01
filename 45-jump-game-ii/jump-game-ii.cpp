@@ -5,24 +5,19 @@ public:
 
         int steps=0;
 
-        int target=n-1;
-        vector<int>ans(n-1);
-        for(int i=0; i<n-1; i++){
-            ans[i]=i+nums[i];
-        }
-        
-        while(target != 0){
-            for(int i=0; i<ans.size(); i++){
-                if(ans[i]>=target){
-                    target=i;
+        int left=0, right=0;
+            
+            while(right<n-1){
+                    int farthest=0;
+                    for(int i=left; i<=right; i++){
+                            farthest= max(farthest, i+nums[i]);
+                    }
+                    left = right+1;
+                    right = farthest;
                     steps++;
-                    break;
-                    
-                }
             }
-        }
-
-        return steps;
+            
+            return steps;
 
     }
 };
