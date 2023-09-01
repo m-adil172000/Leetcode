@@ -8,25 +8,16 @@ public:
         if(nums[0]==0) return false;
         
 
-        vector<int>ans(n);
-        for(int i=0; i<n;i++){
-            ans[i]=0;
+        for(int i=n-1; i>0; i--){
+                if(nums[i-1]+(i-1)>=target){
+                        target = i-1;
+                }
         }
-
-        for(int i=0; i<n-1; i++){
-            int j=nums[i];
-            int k=i+1;
-            while(j>0 && k<n){
-                ans[k]++;
-                j--;
-                k++;
+        
+            if(target == 0){
+                    return true;
             }
-        }
-
-        for(int i=1; i<n; i++){
-            if(ans[i]==0)return false;
-        }
-
-        return true;
+            else return false;
+            
     }
 };
