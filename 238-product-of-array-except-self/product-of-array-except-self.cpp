@@ -2,24 +2,23 @@ class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
         
-        vector<int>order, rev;
         int n=nums.size();
-        int s=1,e=1;
-        for(int i=0;i<n; i++){
-            s = s*nums[i];
-            e = e*nums[n-1-i];
-            order.push_back(s);
-            rev.push_back(e);
+        vector<int>ans(n);
+        for(int i=0; i<n; i++){
+            ans[i]=1;
         }
 
-        vector<int>ans;
-        int val=1;
-        ans.push_back(rev[n-2]);
-        for(int i=1; i<n-1; i++){
-            val = order[i-1]*rev[n-2-i];
-            ans.push_back(val);
+        int prefix_pd=1;
+        for(int i=0; i<n-1; i++){
+            prefix_pd *= nums[i];
+            ans[i+1] *= prefix_pd;
         }
-        ans.push_back(order[n-2]);
+
+        int postfix_pd=1;
+        for(int i=n-1; i>0; i--){
+            postfix_pd  *= nums[i];
+            ans[i-1] *= postfix_pd;
+        }
 
         return ans;
     }
