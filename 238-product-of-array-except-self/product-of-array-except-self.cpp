@@ -1,39 +1,25 @@
 class Solution {
 public:
     vector<int> productExceptSelf(vector<int>& nums) {
-        int zerocnt=0;
-        int pd=1;
-        int n = nums.size();
-
-        for(int i=0; i<n; i++){
-            if(nums[i]==0){
-                zerocnt++;
-            }
-            else{
-                pd = pd*nums[i];
-            }
+        
+        vector<int>order, rev;
+        int n=nums.size();
+        int s=1,e=1;
+        for(int i=0;i<n; i++){
+            s = s*nums[i];
+            e = e*nums[n-1-i];
+            order.push_back(s);
+            rev.push_back(e);
         }
 
         vector<int>ans;
-
-        for(int i=0; i<n; i++){
-            if(nums[i]==0){
-                if(zerocnt==1){
-                    ans.push_back(pd);
-                }
-                else{
-                    ans.push_back(0);
-                }
-            }
-            else{
-                if(zerocnt>=1){
-                    ans.push_back(0);
-                }
-                else{
-                    ans.push_back(pd/(nums[i]));
-                }
-            }
+        int val=1;
+        ans.push_back(rev[n-2]);
+        for(int i=1; i<n-1; i++){
+            val = order[i-1]*rev[n-2-i];
+            ans.push_back(val);
         }
+        ans.push_back(order[n-2]);
 
         return ans;
     }
