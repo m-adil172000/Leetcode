@@ -3,12 +3,9 @@ public:
     uint32_t reverseBits(uint32_t n) {
         uint32_t ans=0;
 
-        int i=31;
-        while(n>0){
-            int bit = n&1;
-            ans += pow(2,i)*bit;
-            i--;
-            n = n>>1;
+        for(int i=0; i<32; i++){
+            int bit = (n>>i)&1;
+            ans = ans | (bit<<(31-i));
         }
 
         return ans;
