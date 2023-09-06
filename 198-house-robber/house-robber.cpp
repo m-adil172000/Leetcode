@@ -4,7 +4,22 @@ public:
     
 
     int rob(vector<int>& nums) {
-        int n = nums.size();
+        int n=nums.size();
+        int rob1=0, rob2=0;
+
+        // [rob1, rob2, i, i+1, i+2, ....]
+        for(int i=0; i<n; i++){
+            int temp = max(nums[i]+rob1, rob2);
+            rob1 = rob2;
+            rob2 = temp;
+        }
+
+        return rob2;
+    }
+};
+
+/*
+int n = nums.size();
 
         vector<int>ans = nums;
         if(n-3>=0){
@@ -27,5 +42,4 @@ public:
         }
 
         return money;
-    }
-};
+*/
