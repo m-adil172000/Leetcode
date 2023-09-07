@@ -2,7 +2,7 @@ class Solution {
 public:
     string simplifyPath(string path) {
         stack<string>st;
-        path += '/';
+        path += '/'; // to deal with if there is a last directory with ".." , so we need to check for that too with a slash condition.
         int n=path.length();
         string ans="";
 
