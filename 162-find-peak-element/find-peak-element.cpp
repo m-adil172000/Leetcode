@@ -1,7 +1,7 @@
 class Solution {
 public:
     int findPeakElement(vector<int>& nums) {
-        
+        ///////// REVISE THIS
         int n =nums.size();
         if(n==1) return 0;
         if(nums[1]<nums[0]) return 0;
