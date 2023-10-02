@@ -22,9 +22,10 @@ public:
         int n = bloomDay.size();
         if((long long)m*k > n) return -1;
 
-        int l=1, r=INT_MIN;
+        int l=INT_MAX, r=INT_MIN;
         for(auto it:bloomDay){
             r = max(it,r);
+            l = min(l,it);
         }
         int ans=0;
         while(l<=r){
