@@ -6,22 +6,23 @@ public:
         if(sum%2!=0) return false;
         int n =nums.size();
         int k = sum/2;
-        vector<vector<bool>>dp(n,vector<bool>(k+1,false));
+        vector<bool>prev(k+1,false), curr(k+1,false);
 
-        for(int i=0; i<n; i++) dp[i][0]=true;
+        curr[0]=prev[0]=true;
 
-        if(nums[0]<=k) dp[0][nums[0]] =true;
+        if(nums[0]<=k) prev[nums[0]] =true;
 
         for(int i=1; i<n; i++){
             for(int j=1; j<=k; j++){
                 bool take =false;
-                if(nums[i]<=j) take = dp[i-1][j-nums[i]];
-                bool nottake = dp[i-1][j];
+                if(nums[i]<=j) take = prev[j-nums[i]];
+                bool nottake = prev[j];
 
-                dp[i][j]=take||nottake;
+                curr[j]=take||nottake;
             }
+            prev = curr;
         }
 
-        return dp[n-1][k];
+        return prev[k];
     }
 };
