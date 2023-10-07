@@ -4,26 +4,30 @@ public:
         int n=nums.size();
         int ans=0;
 
-        int oddcnt=0;
-        vector<int>prevodd;
-        prevodd.push_back(n);
-        int pos=n;
-        if(nums[n-1]%2!=0) pos =n-1;
-        for(int i=n-2; i>=0; i--){
-            prevodd.push_back(pos);
-            if(nums[i]%2!=0) pos=i;
-        }
-        reverse(prevodd.begin(),prevodd.end());
-        int i=0,j=0;
+        // we are going to transform our array--- if the element is odd then change is to 1 else change is to 0
+        // Now to find number of subarrays with k odd numbers, the transformed question becomes-- find the number of subarrays with sum k
+        // bcz only odd numbers i.e. 1 will contribute to sum.
 
-        while(j<n){
-            if(nums[j]%2 != 0) oddcnt++;
-            while(oddcnt==k){
-                ans += prevodd[j]-j;
-                if(nums[i]%2!=0) oddcnt--;
-                i++;
+        //To find number of subarrays with sum equal to k is a standard problem.
+
+        for(int i=0; i<n; i++){
+            if(nums[i]%2==0) nums[i]=0;
+            else nums[i]=1;
+        }
+
+        unordered_map<int,int>mp; //to store the count of prefix sum
+        int pref_sum=0;
+
+        for(int i=0; i<n; i++){
+            pref_sum += nums[i];
+            if(pref_sum==k) ans++;
+
+            if(mp.find(pref_sum-k) != mp.end()){
+                ans += mp[pref_sum-k];
             }
-            j++;
+
+            mp[pref_sum]++;
+
         }
 
         return ans;
