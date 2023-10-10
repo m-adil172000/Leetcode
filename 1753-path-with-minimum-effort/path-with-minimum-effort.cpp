@@ -19,6 +19,8 @@ public:
             int c = it.second.second;
             int eff = it.first;
 
+            if(r==n-1 && c==m-1) return eff;
+
             for(int i=0; i<4; i++){
                 int nr = r + drow[i];
                 int nc = c + dcol[i];
