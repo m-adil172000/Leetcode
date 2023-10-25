@@ -1,7 +1,7 @@
 class Solution {
 public:
 
-    void bfs(vector<vector<char>>& grid, int n, int m, int sx, int sy, int**visited){
+    void bfs(vector<vector<char>>& grid, int n, int m, int sx, int sy,vector<vector<int>>& visited ){
         visited[sx][sy]=1;
         queue<pair<int,int>>q;
         q.push({sx, sy});
@@ -31,13 +31,7 @@ public:
         int n=grid.size();
         int m =grid[0].size();
 
-        int**visited=new int*[n];
-        for(int i=0; i<n; i++){
-            visited[i]=new int[m];
-            for(int j=0; j<m; j++){
-                visited[i][j]=0;
-            }
-        }
+        vector<vector<int>>visited(n,vector<int>(m,0));
 
         int ans=0;
         for(int i=0; i<n; i++){
