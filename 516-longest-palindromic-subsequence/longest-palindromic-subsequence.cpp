@@ -13,6 +13,8 @@ int solve(int i, int j, string &s, vector<vector<int>>&dp){
         return dp[i][j] = max(solve(i+1,j,s,dp),solve(i,j-1,s,dp));
     }
 */
+
+//Instead we can solve this by using Longest Common Subsequence approach. We can make another string which is reverse of the original string and if we find the LCS of both then that will be also the longest Palindromic subsequence.
 class Solution {
 public:
     int longestPalindromeSubseq(string s1) {
