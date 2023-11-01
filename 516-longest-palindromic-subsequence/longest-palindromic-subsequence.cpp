@@ -1,6 +1,6 @@
-class Solution {
-private:
-    int solve(int i, int j, string &s, vector<vector<int>>&dp){
+// I tried it with pointing one index to start of the string and one to the end of it. Applied DP usng this method.
+/*
+int solve(int i, int j, string &s, vector<vector<int>>&dp){
 
         if(i>j) return 0;
         if(i==j) return 1;
@@ -12,11 +12,33 @@ private:
         }
         return dp[i][j] = max(solve(i+1,j,s,dp),solve(i,j-1,s,dp));
     }
+*/
+class Solution {
 public:
-    int longestPalindromeSubseq(string s) {
-        int n = s.length();
-        vector<vector<int>>dp(n,vector<int>(n,-1));
-        return solve(0,n-1,s,dp);
+    int longestPalindromeSubseq(string s1) {
+        int n = s1.length();
+        string s2 = s1;
+        reverse(s2.begin(), s2.end());
+
+        vector<vector<int>>dp(n+1,vector<int>(n+1,0));
+
+        for(int i=0; i<n; i++){
+            dp[i][0]=0;
+            dp[0][i]=0;
+        }
+
+        for(int i=1; i<=n; i++){
+            for(int j=1; j<=n; j++){
+                if(s1[i-1] == s2[j-1]){
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                }
+                else{
+                    dp[i][j] = max(dp[i-1][j] , dp[i][j-1]);
+                }
+            }
+        }
+
+        return dp[n][n];
         
     }
 };
