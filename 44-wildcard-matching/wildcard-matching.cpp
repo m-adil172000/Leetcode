@@ -1,6 +1,7 @@
 class Solution {
 private:
     bool allstars(int i, string &p){
+        
         for (int j = 0; j <= i; j++) {
             if (p[j] != '*')
                 return false;
@@ -30,10 +31,27 @@ public:
        int n = s.length();
        int m = p.length();
 
-       vector<vector<int>>dp(n,vector<int>(m,-1));
+       vector<vector<bool>>dp(n+1,vector<bool>(m+1,0));
        if(s.length()>0 && p.length()==0) return false;
        if (allstars(m-1,p)) return true;
+
+       dp[0][0]=true;
+       for(int i=1; i<=n; i++) dp[i][0]=false;
+       for(int j=1; j<=m; j++) dp[0][j] = allstars(j-1,p);
+
+       for(int i=1; i<=n; i++){
+           for(int j=1; j<=m; j++){
+               if(s[i-1]==p[j-1] || p[j-1]=='?'){
+                   dp[i][j] = dp[i-1][j-1];
+               }
+               else{
+                   if(p[j-1]=='*') dp[i][j] = dp[i-1][j] || dp[i][j-1];
+                   else dp[i][j] = false;
+               }
+           }
+       }
+
+       return dp[n][m];
        
-       return solve(n-1,m-1,s,p,dp); 
     }
 };
